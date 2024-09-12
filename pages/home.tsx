@@ -1,7 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
+import FixedAvatar from '@/components/fixedavatar'
+// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
+// import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
 
 const CodeBackground = () => {
     const [code, setCode] = useState('')
@@ -23,13 +26,13 @@ const CodeBackground = () => {
                 '', 
                 '  <section id="home">', 
                 '    <h2>Welcome to Our Website</h2>', 
-                '    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id libero orci. Nullam lacinia enim nec urna vehicula blandit.</p>', 
+                '    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>', 
                 '    <button class="btn btn-primary">Learn More</button>', 
                 '  </section>', 
                 '', 
                 '  <section id="about">', 
                 '    <h2>About Us</h2>', 
-                '    <p>Curabitur imperdiet nulla ut libero dictum, ac dapibus velit suscipit. Integer gravida justo vel justo porttitor gravida.</p>', 
+                '    <p>Curabitur imperdiet nulla ut libero dictum, ac dapibus velit suscipit.</p>', 
                 '  </section>', 
                 '', 
                 '  <section id="services">', 
@@ -41,27 +44,6 @@ const CodeBackground = () => {
                 '    </ul>', 
                 '  </section>', 
                 '', 
-                '  <section id="testimonials">', 
-                '    <h2>What Our Clients Say</h2>', 
-                '    <blockquote>', 
-                '      <p>"This company helped us increase our website traffic by 50% in just three months!"</p>', 
-                '      <cite>- John Doe, CEO of Example Corp</cite>', 
-                '    </blockquote>', 
-                '  </section>', 
-                '', 
-                '  <section id="contact">', 
-                '    <h2>Contact Us</h2>', 
-                '    <form>', 
-                '      <label for="name">Name:</label>', 
-                '      <input type="text" id="name" name="name" required>', 
-                '      <label for="email">Email:</label>', 
-                '      <input type="email" id="email" name="email" required>', 
-                '      <label for="message">Message:</label>', 
-                '      <textarea id="message" name="message" rows="4" required></textarea>', 
-                '      <button type="submit" class="btn btn-secondary">Send Message</button>', 
-                '    </form>', 
-                '  </section>', 
-                '</div>',
               ]
               
       
@@ -82,7 +64,7 @@ const CodeBackground = () => {
             } else {
               clearInterval(intervalId)
             }
-          }, 30)
+          }, 60)
       
           return () => clearInterval(intervalId)
         }, [])
@@ -95,26 +77,23 @@ const CodeBackground = () => {
 }
 
 export default function Component() {
-  const [greeting, setGreeting] = useState("Welcome")
 
   return (
     <div className="relative min-h-screen bg-gray-950 flex flex-row p-8 overflow-hidden">
       <CodeBackground />
       
       <div className="z-10 w-1/2 flex flex-col justify-center space-y-8 pl-16 ml-5">
-        <h1 className="text-7xl font-bold text-white mb-6 ">
+        <h1 className="text-8xl font-bold text-white mb-6">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-100 ">
-            {greeting}
+            Welcome
           </span>
         </h1>
         <div className="text-white space-y-6 mb-8">
-          <p className="max-w-md text-xl animate-soft-lighting">
-            Experience the future of web development with our cutting-edge platform. 
-            Built for developers, by developers.
+          <p className="max-w-lg text-xl text-glow">
+          Organize your thoughts, capture your ideas, and unleash your productivity with our powerful note-taking platform. Whether you're a student, a professional, or simply someone who loves to keep track of their daily tasks and notes, Note Wizard is the perfect tool to help you stay organized and focused.
           </p>
-          <p className="max-w-md text-xl animate-soft-lighting">
-            Join our community and take your coding skills to the next level. 
-            Start your journey today!
+          <p className="max-w-lg text-xl text-glow">
+          Get started today and unlock the full potential of your ideas. Sign up now or log in to begin your journey with Note Wizard.
           </p>
         </div>
       </div>
@@ -123,18 +102,19 @@ export default function Component() {
         <Button 
           variant="outline"
           className="animate-soft-lighting w-3/5 h-1/6 bg-gray-950 hover:bg-white text-white hover:text-gray-950 border-purple-300 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-[0_0_10px_#a855f7,inset_0_0_10px_#a855f7] hover:shadow-[0_0_20px_#ffffff,inset_0_0_20px_#ffffff] text-4xl" 
-          onClick={() => setGreeting("Welcome! Sign up now")}
+          onClick={() => {}}
         >
           Sign Up
         </Button>
-        <div className="animate-soft-lighting animate-bounce text-white text-center w-3/5 text-3xl">or</div>
+        <div className="text-glow animate-bounce text-white text-center w-3/5 text-3xl">or</div>
         <Button 
           variant="outline"
           className="animate-soft-lighting w-3/5 h-1/6 bg-gray-950 hover:bg-white text-white hover:text-gray-950 border-purple-300 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-[0_0_10px_#9333ea,inset_0_0_10px_#9333ea] hover:shadow-[0_0_20px_#ffffff,inset_0_0_20px_#ffffff] text-4xl"
-          onClick={() => setGreeting("Welcome back")}
+          onClick={() => {}}
         >
           Log In
         </Button>
+        <FixedAvatar />
       </div>
       <style jsx global>{`
         @keyframes soft-lighting {
