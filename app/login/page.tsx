@@ -1,16 +1,27 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+
+
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 import CodeBackground from '@/components/code'
 
+
 export default function Component() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsClicked(true);
+    // Add your form submission logic here
+    setTimeout(() => setIsClicked(false), 1000); // Reset after 1 second
+  };
 
   return (
     <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-cente p-4 mr-6 overflow-hidden">
@@ -59,14 +70,15 @@ export default function Component() {
             <div className='absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-24  h-24 rounded-full flex items-center justify-center bg-gray-950'>
               <Button
                 type="submit"
-                className="
+                className={`
             absolute right-0 top-1/2 -translate-y-1/2 ml-12 w-24 h-24 rounded-full flex items-center justify-center
             hover:bg-white text-white hover:text-gray-950 border-purple-300 transition-all duration-300 ease-in-out transform 
             bg-gray-800
             border-solid
             border-gray-950
             border-4
-            "
+            ${isClicked ? 'animate-click' : ''} 
+            `}
               >
                 <ArrowRight className="w-6 h-6 text-glow" />
               </Button>
@@ -94,6 +106,14 @@ export default function Component() {
         }
         .animate-soft-lighting {
           animation: soft-lighting 3s ease-in-out infinite;
+        }
+          @keyframes click-animation {
+          0% { transform: scale(1) translateY(-50%); }
+          50% { transform: scale(0.95) translateY(-50%); }
+          100% { transform: scale(1) translateY(-50%); }
+        }
+        .animate-click {
+          animation: click-animation 0.3s ease-in-out;
         }
       `}</style>
     </div>

@@ -1,69 +1,76 @@
-"use client"
-
-import React, { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
-import {useRouter} from 'next/navigation'
-// import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
-// import { dark } from 'react-syntax-highlighter/dist/esm/styles/prism'
-
-import FixedAvatar from '@/components/fixedavatar'
-import CodeBackground from '@/components/code';
-
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Textarea } from "@/components/ui/textarea"
+import { Bell, Filter, GitBranch, Plus, Search } from "lucide-react"
 
 export default function Component() {
-  const router = useRouter();
-
   return (
-    <div className="relative min-h-screen bg-gray-950 flex flex-col overflow-hidden">
-      {/* <Navbar /> */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="blur-circle blur-circle-1"></div>
-        <div className="blur-circle blur-circle-2"></div>
-        <div className="blur-circle blur-circle-3"></div>
+    <div className="flex h-screen bg-gray-950 text-white-100">
+      {/* Sidebar */}
+      <div className="w-64 p-4 border-r border-gray-800">
+        <div className="flex items-center mb-6">
+          <GitBranch className="mr-2" />
+          <h1 className="text-xl font-bold">Dashboard</h1>
+        </div>
+        <h2 className="text-sm font-semibold mb-2">Top repositories</h2>
+        <Input className="mb-4" placeholder="Find a repository..." />
+        <ul className="space-y-2">
+          {['User/Repo1', 'User/Repo2', 'User/Repo3'].map((repo) => (
+            <li key={repo} className="flex items-center">
+              <div className="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+              {repo}
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="flex flex-row p-8 pt-24">
-        <CodeBackground />
 
-        <div className="z-10 w-1/2 flex flex-col justify-center space-y-8 pl-16 ml-11 mt-6">
-          <h1 className="text-8xl font-bold text-white mb-6">
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-100 ">
-              Welcome
-            </span>
-          </h1>
-          <div className="text-white space-y-6 mb-8">
-            <p className="max-w-lg text-xl text-glow">
-              Organize your thoughts, capture your ideas, and unleash your productivity with our powerful note-taking platform. Whether you're a student, a professional, or simply someone who loves to keep track of their daily tasks and notes, Amethyst is the perfect tool to help you stay organized and focused.
-            </p>
-            <p className="max-w-lg text-xl text-glow">
-              Get started today and unlock the full potential of your ideas. Sign up now or log in to begin your journey with Note Wizard.
-            </p>
+      {/* Main content */}
+      <div className="flex-1 p-8">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-4xl font-bold ml-5">Home</h2>
+          <div className="flex items-center space-x-4">
+            <Button variant="outline" size="icon">
+              <Bell className="h-4 w-4" />
+            </Button>
+            <Button variant="outline" size="icon">
+              <Plus className="h-4 w-4" />
+            </Button>
+            <div className="w-8 h-8 rounded-full bg-gray-700"></div>
           </div>
         </div>
 
-        <div className="z-10 w-1/2 flex flex-col justify-center items-center space-y-8 mr-7 pr-5">
-          <Button
-            variant="outline"
-            className="animate-soft-lighting w-3/5 h-1/6 bg-gray-950 hover:bg-white text-white hover:text-gray-950 border-purple-300 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-[0_0_10px_#a855f7,inset_0_0_10px_#a855f7] hover:shadow-[0_0_20px_#ffffff,inset_0_0_20px_#ffffff] text-4xl"
-            onClick={() => { }}
-            
-          >
-            Sign Up
-          </Button>
-          <div className="text-glow animate-bounce text-white text-center w-3/5 text-3xl">or</div>
-          
-          <Button
-            variant="outline"
-            className="animate-soft-lighting w-3/5 h-1/6 bg-gray-950 hover:bg-white text-white hover:text-gray-950 border-purple-300 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-[0_0_10px_#9333ea,inset_0_0_10px_#9333ea] hover:shadow-[0_0_20px_#ffffff,inset_0_0_20px_#ffffff] text-4xl"
-            onClick={() => router.push('/login')}
-          >
-            Log In
-          </Button>
-          
-          
+        <div className="space-y-6">
+          <div className="p-6 bg-gray-900 rounded-xl">
+            <h3 className="text-xl font-semibold mb-4">Start a new notespace</h3>
+            <p className="text-gray-400 mb-4">Notespace is a space for your notes.</p>
+            <Input className="mb-4 bg-gray-800 border-none
+            focus:bg-gray-700 focus:text-white
+            " placeholder="Notespace name" />
+            <RadioGroup defaultValue="private">
+              <div className="flex items-center space-x-2 text-gray-400 hover:text-white w-auto">
+                <RadioGroupItem value="public" id="public" />
+                <Label htmlFor="public">Public</Label>
+              </div>
+              <div className="flex items-center space-x-2 text-gray-400 hover:text-white w-auto">
+                <RadioGroupItem value="private" id="private" />
+                <Label htmlFor="private" className="">Private</Label>
+              </div>
+            </RadioGroup>
+            <Button className="mt-4 border border-solid border-gray-950 bg-gray-800
+            hover:bg-white hover:text-gray-950
+            ">Create repository</Button>
+          </div>
+
+          {/* <div className="p-6 bg-gray-800 rounded-xl">
+            <h3 className="text-xl font-semibold mb-4">Introduce yourself with a profile README</h3>
+            <p className="text-gray-400 mb-4">Share information about yourself by creating a profile README, which appears at the top of your profile page.</p>
+            <Textarea className="min-h-[100px] mb-4" placeholder="👋 Hi, I'm @username" />
+            <Button>Create README</Button>
+          </div> */}
         </div>
       </div>
     </div>
-
   )
 }
-
