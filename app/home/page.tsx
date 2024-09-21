@@ -1,11 +1,23 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Textarea } from "@/components/ui/textarea"
+
 import { Bell, Filter, GitBranch, Plus, Search } from "lucide-react"
 
+import { useAlerts } from '@/components/alert/Alert'
+
+
+
 export default function Component() {
+    const { addAlert } = useAlerts();
+
+    const handleCreate = () => {
+        addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "success");
+    };
+
     return (
         <div className="flex h-screen bg-gray-950 text-white-100">
             {/* Sidebar */}
@@ -62,7 +74,9 @@ export default function Component() {
                         </RadioGroup>
                         <Button className="mt-4 border border-solid border-gray-950 bg-gray-800
             hover:bg-white hover:text-gray-950
-            ">Create repository</Button>
+            "
+            onClick={()=>handleCreate()}
+            >Create notespace</Button>
                     </div>
 
                     {/* <div className="p-6 bg-gray-800 rounded-xl">

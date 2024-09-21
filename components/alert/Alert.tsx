@@ -42,7 +42,10 @@ const AlertComponent: React.FC<{ alert: Alert; onClose: () => void }> = ({ alert
       initial={{ opacity: 0, y: 50, x: 50 }}
       animate={{ opacity: 1, y: 0, x: 0 }}
       exit={{ opacity: 0, y: 50, x: 50 }}
-      className={`bg-gray-950 text-white p-4 rounded-xl min-h-18 text-pretty min-w-60 max-w-96 shadow-lg flex justify-between items-center border-2 border-dashed ${borderColor}`}
+      className={`text-white p-4 rounded-xl min-h-18 text-pretty min-w-60 max-w-96 shadow-lg flex justify-between items-center border-2 border-dashed ${borderColor}
+        bg-gray-950/30 
+        backdrop-blur-sm
+      `}
     >
       <span>{alert.message}</span>
       <button onClick={onClose} className="ml-4 focus:outline-none">
