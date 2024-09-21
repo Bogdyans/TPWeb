@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import FixedAvatar from "@/components/fixedavatar";
-import Layout from '../components/layout'
 import { AlertProvider } from "@/components/alert/Alert";
 
 const geistSans = localFont({

@@ -33,16 +33,16 @@ const AlertComponent: React.FC<{ alert: Alert; onClose: () => void }> = ({ alert
     return () => clearTimeout(timer)
   }, [onClose])
 
-  const bgColor = 
-    alert.type === 'success' ? 'bg-green-500' :
-    alert.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
+  const borderColor = 
+    alert.type === 'success' ? 'border-green-700' :
+    alert.type === 'error' ? 'border-red-700' : 'border-blue-700'
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 50, x: 50 }}
       animate={{ opacity: 1, y: 0, x: 0 }}
       exit={{ opacity: 0, y: 50, x: 50 }}
-      className={`${bgColor} text-white p-4 rounded-lg shadow-lg flex justify-between items-center`}
+      className={`bg-gray-950 text-white p-4 rounded-xl min-h-18 text-pretty min-w-60 max-w-96 shadow-lg flex justify-between items-center border-2 border-dashed ${borderColor}`}
     >
       <span>{alert.message}</span>
       <button onClick={onClose} className="ml-4 focus:outline-none">

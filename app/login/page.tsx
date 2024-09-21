@@ -30,7 +30,7 @@ export default function Component() {
 
   const handleLogin = () => {
     if (password.length < 8){
-      addAlert("Password is too short", "")
+      addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "error")
       return;
     }
   };
@@ -48,7 +48,7 @@ export default function Component() {
 
         <div className="w-full max-w-md space-y-8">
 
-          <h1 className="text-8xl font-bold text-white text-center mb-6 ml-6">
+          <h1 className="text-8xl font-bold text-white text-center mb-6 ">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-100 text-glow">
               Sign In
             </span>
