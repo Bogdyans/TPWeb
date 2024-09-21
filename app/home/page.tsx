@@ -17,7 +17,7 @@ export default function Component() {
                 <div className="border-solid border-gray-800 border rounded-lg p-3 space-y-4">
                     <h2 className="text-sm font-semibold mb-2">Top repositories</h2>
                     <Input className="bg-gray-900 focus:text-white border-gray-800 focus:bg-gray-800" placeholder="Find a repository..." />
-                    <ul className="space-y-2 ml-2">
+                    <ul className="space-y-2 ml-2 ">
                         {['User/Repo1', 'User/Repo2', 'User/Repo3'].map((repo) => (
                             <li key={repo} className="flex items-center hover:bg-gray-900 p-1 rounded-sm">
                                 <div className="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>

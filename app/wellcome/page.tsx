@@ -62,7 +62,9 @@ export default function Component() {
           
         </div>
       </div>
+      {/* <FixedAvatar /> */}
     </div>
+    
 
   )
 }

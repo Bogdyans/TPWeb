@@ -9,26 +9,40 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight } from 'lucide-react'
 
 import CodeBackground from '@/components/code'
+import { useAlerts } from '@/components/alert/Alert'
+
 
 
 export default function Component() {
-  const [username, setUsername] = useState('');
+  const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
   const [isClicked, setIsClicked] = useState(false);
+  const { addAlert } = useAlerts();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsClicked(true);
-    // Add your form submission logic here
+    
+    handleLogin();
+
     setTimeout(() => setIsClicked(false), 1000); // Reset after 1 second
   };
 
+  const handleLogin = () => {
+    if (password.length < 8){
+      addAlert("Password is too short", "")
+      return;
+    }
+  };
+
+
+
   return (
     <div className="min-h-screen bg-gray-950 flex flex-col items-center justify-cente p-4 mr-6 overflow-hidden">
-<div className="absolute inset-0 overflow-hidden">
-        <div className="blur-circle blur-circle-4"/>
-        <div className="blur-circle blur-circle-5"/>
-        
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="blur-circle blur-circle-4" />
+        <div className="blur-circle blur-circle-5" />
+
       </div>
       <div className="flex flex-row p-8 pt-24">
 
@@ -41,17 +55,16 @@ export default function Component() {
           </h1>
 
           <div className="relative">
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
               <Input
                 type="text"
-                placeholder="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full h-12 px-4 py-2 text-sm text-white bg-gray-800 rounded-md focus:bg-white focus:text-grey-950 focus:ring-purple-500 placeholder-gray-500
+                placeholder="mail"
+                value={mail}
+                onChange={(e) => setMail(e.target.value)}
+                className="w-full h-12 px-4 py-2 text-sm text-white bg-gray-800 rounded-md focus:bg-white focus:text-gray-900 placeholder-gray-500
               transition-all duration-300
               border-none
               ease-in-out transform
-              hover:border
               "
               />
               <Input
@@ -59,11 +72,10 @@ export default function Component() {
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-ful h-12 px-4 py-2 text-sm text-white bg-gray-800 rounded-md focus:bg-white focus:text-grey-950 focus:ring-purple-500 placeholder-gray-500
+                className="w-ful h-12 px-4 py-2 text-sm text-white bg-gray-800 rounded-md focus:bg-white focus:text-gray-900 placeholder-gray-500
               border-none
               transition-all duration-300
               ease-in-out transform  
-              
               "
               />
             </form>
@@ -77,8 +89,9 @@ export default function Component() {
             border-solid
             border-gray-950
             border-4
-            ${isClicked ? 'animate-click' : ''} 
+            
             `}
+            onClick={(e) => handleSubmit(e)}
               >
                 <ArrowRight className="w-6 h-6 text-glow" />
               </Button>
@@ -113,7 +126,7 @@ export default function Component() {
           100% { transform: scale(1) translateY(-50%); }
         }
         .animate-click {
-          animation: click-animation 0.3s ease-in-out;
+          animation: click-animation 0.5s ease-in;
         }
       `}</style>
     </div>
