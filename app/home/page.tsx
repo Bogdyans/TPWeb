@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 import { Bell, Filter, GitBranch, Plus, Search } from "lucide-react"
+import Link from "next/link"
 
 import { useAlerts } from '@/components/alert/Alert'
 
@@ -13,6 +14,7 @@ import { useAlerts } from '@/components/alert/Alert'
 
 export default function Component() {
     const { addAlert } = useAlerts();
+    const username = "Bogdyan";
 
     const handleCreate = () => {
         addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "success");
@@ -32,8 +34,10 @@ export default function Component() {
                     <ul className="space-y-2 ml-2 ">
                         {['User/Repo1', 'User/Repo2', 'User/Repo3'].map((repo) => (
                             <li key={repo} className="flex items-center hover:bg-gray-900 p-1 rounded-sm">
-                                <div className="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                {repo}
+                                <Link href={`/${repo}`}>
+                                    <div className="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
+                                    {repo}
+                                </Link>
                             </li>
                         ))}
                     </ul>
@@ -51,7 +55,9 @@ export default function Component() {
                         <Button variant="outline" size="icon">
                             <Plus className="h-4 w-4" />
                         </Button>
-                        <div className="w-8 h-8 rounded-full bg-gray-700"></div>
+                        <Link href={`/${username}`}>
+                            <div className="w-8 h-8 rounded-full bg-gray-700"></div>
+                        </Link>
                     </div>
                 </div>
 
