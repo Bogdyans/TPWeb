@@ -9,6 +9,7 @@ import { Bell, Filter, GitBranch, Plus, Search } from "lucide-react"
 import Link from "next/link"
 
 import { useAlerts } from '@/components/alert/Alert'
+import NotespaceList from "./components/notespaceList"
 
 
 
@@ -20,6 +21,10 @@ export default function Component() {
         addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "success");
     };
 
+    const getRepos = () => {
+
+    }
+
     return (
         <div className="flex h-screen bg-gray-950 text-white-100">
             {/* Sidebar */}
@@ -28,20 +33,7 @@ export default function Component() {
                     <GitBranch className="mr-2" />
                     <h1 className="text-2xl font-bold">Amethyst</h1>
                 </div>
-                <div className="border-solid border-gray-800 border rounded-lg p-3 space-y-4">
-                    <h2 className="text-sm font-semibold mb-2">Top repositories</h2>
-                    <Input className="bg-gray-900 focus:text-white border-gray-800 focus:bg-gray-800" placeholder="Find a repository..." />
-                    <ul className="space-y-2 ml-2 ">
-                        {['User/Repo1', 'User/Repo2', 'User/Repo3'].map((repo) => (
-                            <li key={repo} className="flex items-center hover:bg-gray-900 p-1 rounded-sm">
-                                <Link href={`/${repo}`}>
-                                    <div className="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                    {repo}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                <NotespaceList/>
             </div>
 
             {/* Main content */}
@@ -84,13 +76,6 @@ export default function Component() {
             onClick={()=>handleCreate()}
             >Create notespace</Button>
                     </div>
-
-                    {/* <div className="p-6 bg-gray-800 rounded-xl">
-            <h3 className="text-xl font-semibold mb-4">Introduce yourself with a profile README</h3>
-            <p className="text-gray-400 mb-4">Share information about yourself by creating a profile README, which appears at the top of your profile page.</p>
-            <Textarea className="min-h-[100px] mb-4" placeholder="👋 Hi, I'm @username" />
-            <Button>Create README</Button>
-          </div> */}
                 </div>
             </div>
         </div>
