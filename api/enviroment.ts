@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { HomeEnviroment } from '@/types/HomeEnviroments';
 import { Enviroment } from '@/types/enviroment';
+import { TIMEOUT } from './fetchConstant';
 
 export async function fetchHomeEnviromentsForUser(userId: number): Promise<HomeEnviroment[]> {
     try {
         const response = await axios.get<HomeEnviroment[]>('http://localhost:8000/api/environment/home', {
             params: { userId },
-            timeout: 5000
+            timeout: TIMEOUT
         }
         );
         return response.data;

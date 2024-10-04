@@ -1,4 +1,4 @@
 export interface HomeEnviroment {
-    enviromentName: string;
-    authorName: string;
+    notespace: string;
+    author: string;
 };

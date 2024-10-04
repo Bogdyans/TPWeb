@@ -4,10 +4,14 @@ import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react"
 import { File } from "@/types/file";
 import { rootFiles } from "../mocks/rootFiles";
+import Link from "next/link";
+import { HomeEnviroment } from "@/types/HomeEnviroments";
 
 
 
-export default function RootFileList({ params }) {
+export default function RootFileList({ author, notespace }: HomeEnviroment) {
+    
+
     let [files, setFiles] = useState<File[]>([]);
     const [state, setState] = useState("Loading");
     const [searchTerm, setSearchTerm] = useState("");
@@ -18,12 +22,12 @@ export default function RootFileList({ params }) {
     useEffect(() => {
         const fetchFiles = async () => {
             try {
-                const fetchedFiles = await getRootFiles(params.username, params.notespace);
+                const fetchedFiles = await getRootFiles(author, notespace);
                 setFiles(fetchedFiles);
                 setState("Success");
             } catch (err) {
                 addAlert("Error fetching files", "error");
-                // setState("Error");
+                //setState("Error");
                 setFiles(rootFiles);
                 setState("Succes");
                 console.error("Error fetching files: ", err);
@@ -50,7 +54,7 @@ export default function RootFileList({ params }) {
                 <ul className="space-y-2">
                     {filteredFiles.map((item) => (
                         <li key={filteredFiles.indexOf(item)} className="flex items-center justify-between p-2 hover:bg-gray-800 rounded">
-                            <span>{item.name}</span>
+                            <Link href={`/${author}/${notespace}/view`}><span>{item.name}</span></Link>
                             <span className="text-gray-400 text-sm">Last updated 2 days ago</span>
                         </li>
                     ))}

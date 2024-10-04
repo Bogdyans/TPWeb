@@ -29,8 +29,8 @@ export default function NotespaceList() {
             } catch (err) {
 
                 setNotespaces(listEnv);
-                //setState("Error");
-                addAlert(`An error occurred while fetching notespaces.`, "error");
+                setState("Success");
+                //addAlert(`An error occurred while fetching notespaces.`, "error");
                 console.error("Error fetching notespaces:", err);
             } 
         }
@@ -40,7 +40,7 @@ export default function NotespaceList() {
 
     const filteredNotespaces = notespaces && Array.isArray(notespaces)
         ? notespaces.filter((notespace) =>
-            notespace.enviromentName.toLowerCase().includes(searchTerm.toLowerCase())
+            notespace.notespace.toLowerCase().includes(searchTerm.toLowerCase())
         )
         : [];
 
@@ -63,9 +63,9 @@ export default function NotespaceList() {
                 <ul className="space-y-2 ml-2">
                     {filteredNotespaces.map((notespace) => (
                         <li key={notespaces.indexOf(notespace)} className="flex items-center hover:bg-gray-900 p-1 rounded-sm">
-                            <Link href={`/${notespace.authorName}/${notespace.enviromentName}`}>
+                            <Link href={`/${notespace.author}/${notespace.notespace}`}>
                                 <div className="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                {notespace.authorName} / {notespace.enviromentName}
+                                {notespace.author} / {notespace.notespace}
                             </Link>
                         </li>
                     ))}
