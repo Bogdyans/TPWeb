@@ -1,7 +1,9 @@
-Система создания заметок Аметист
+#Система создания заметок Аметист.
 
-для запуска:
-git clone https://github.com/Bogdyans/TPWeb.git
-cd amethist
-npm install
-npm run dev
+для запуска: \n
+```
+git clone https://github.com/Bogdyans/TPWeb.git \n
+cd amethist \n
+npm install \n
+npm run dev \n
+```
