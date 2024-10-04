@@ -21,10 +21,6 @@ export default function Component() {
         addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "success");
     };
 
-    const getRepos = () => {
-
-    }
-
     return (
         <div className="flex h-screen bg-gray-950 text-white-100">
             {/* Sidebar */}

@@ -10,6 +10,7 @@ import axios from "axios"
 import { fetchHomeEnviromentsForUser } from "@/api/enviroment";
 import { useAlerts } from "@/components/alert/Alert";
 import { HomeEnviroment } from "@/types/HomeEnviroments";
+import { listEnv } from "../mocks/EnviromentList";
 
 export default function NotespaceList() {
     let [notespaces, setNotespaces] = useState<HomeEnviroment[]>([]);
@@ -30,15 +31,9 @@ export default function NotespaceList() {
                 const fetchedNotespaces = await fetchHomeEnviromentsForUser(userId)
                 setNotespaces(fetchedNotespaces)
             } catch (err) {
-                if (axios.isAxiosError(err)) {
-                    if (err.code === 'ECONNABORTED') {
-                      setError("Request timed out. Please try again.")
-                    } else {
-                      setError(err.response?.data?.message || "An error occurred while fetching notespaces.")
-                    }
-                  } else {
-                    setError("An unexpected error occurred.")
-                  }
+
+                setNotespaces(listEnv);
+                //setError("An error occurred while fetching notespaces.");
                 addAlert(`An error occurred while fetching notespaces.`, "error");
                 console.error("Error fetching notespaces:", err)
             } finally {
@@ -73,17 +68,18 @@ export default function NotespaceList() {
             ) : filteredNotespaces.length > 0 ? (
                 <ul className="space-y-2 ml-2">
                     {filteredNotespaces.map((notespace) => (
-                        <li key={notespace.enviromentId} className="flex items-center hover:bg-gray-900 p-1 rounded-sm">
-                            <Link href={`/${notespace.authorName}/${notespace.enviromentName}`}> 
+                        <li key={notespaces.indexOf(notespace)} className="flex items-center hover:bg-gray-900 p-1 rounded-sm">
+                            <Link href={`/${notespace.authorName}/${notespace.enviromentName}`}>
                                 <div className="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                {notespace.authorName}/{notespace.enviromentName}
+                                {notespace.authorName} / {notespace.enviromentName}
                             </Link>
                         </li>
                     ))}
                 </ul>
             ) : (
                 <div className="text-center text-gray-500">No notespaces found.</div>
-            )}
-        </div>
+            )
+            }
+        </div >
     );
 }

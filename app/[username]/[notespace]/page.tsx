@@ -1,10 +1,16 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Code, FileText, GitPullRequest, Info, Play, Shield, Star } from "lucide-react"
+import { useRouter } from "next/navigation"
+import Link from "next/link"
+import RootFileList from "./components/rootFileList"
 
-export default function Component() {
+export default function Component({ params }) {
+
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <header className="border-b border-gray-800 p-4">
@@ -14,17 +20,9 @@ export default function Component() {
               <AvatarImage src="/placeholder-avatar.jpg" alt="@user" />
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
-            <h1 className="text-xl font-semibold">Username / Notespace</h1>
+            <h1 className="text-xl font-semibold">
+              <Link href={`/${params.username}`}>{params.username} </Link> / {params.notespace}</h1>
             <span className="rounded-full bg-gray-700 px-2 py-1 text-xs">Public</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm">
-              <Star className="mr-2 h-4 w-4" />
-              Star
-            </Button>
-            <Button variant="outline" size="sm">
-              Fork
-            </Button>
           </div>
         </div>
       </header>
@@ -70,28 +68,12 @@ export default function Component() {
           </div>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm">
-              Go to file
-            </Button>
-            <Button variant="outline" size="sm">
-              Add file
-            </Button>
-            <Button variant="default" size="sm">
-              Code
+              Add files
             </Button>
           </div>
         </div>
         <div className="grid grid-cols-3 gap-6">
-          <div className="col-span-2">
-            <Input className="mb-4" placeholder="Find a note..." />
-            <ul className="space-y-2">
-              {['Note 1.md', 'Note 2.md', 'Folder 1', 'Shared Note.md'].map((item) => (
-                <li key={item} className="flex items-center justify-between p-2 hover:bg-gray-800 rounded">
-                  <span>{item}</span>
-                  <span className="text-gray-400 text-sm">Last updated 2 days ago</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <RootFileList/>
           <div>
             <h2 className="text-lg font-semibold mb-4">About</h2>
             <p className="text-sm text-gray-400 mb-4">
