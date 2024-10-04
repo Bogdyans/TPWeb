@@ -10,6 +10,7 @@ import Link from "next/link"
 import RootFileList from "./components/rootFileList"
 
 export default function Component({ params }) {
+  const state: String = "Public";
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -22,7 +23,7 @@ export default function Component({ params }) {
             </Avatar>
             <h1 className="text-xl font-semibold">
               <Link href={`/${params.username}`}>{params.username} </Link> / {params.notespace}</h1>
-            <span className="rounded-full bg-gray-700 px-2 py-1 text-xs">Public</span>
+            <span className={`rounded-full  ${(state == "Public")? "bg-green-700" : "bg-red-700"} px-2 py-1 text-xs`}>{state}</span>
           </div>
         </div>
       </header>
@@ -58,10 +59,10 @@ export default function Component({ params }) {
             <Button variant="outline" size="sm">
               main
             </Button>
-            <Button variant="ghost" size="sm">
+            {/* <Button variant="ghost" size="sm">
               <Code className="mr-2 h-4 w-4" />
               1 branch
-            </Button>
+            </Button> */}
             <Button variant="ghost" size="sm">
               0 tags
             </Button>
@@ -73,7 +74,7 @@ export default function Component({ params }) {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-6">
-          <RootFileList/>
+          <RootFileList params={[params.username, params.notespace]}/>
           <div>
             <h2 className="text-lg font-semibold mb-4">About</h2>
             <p className="text-sm text-gray-400 mb-4">

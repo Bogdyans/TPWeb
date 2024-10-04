@@ -2,10 +2,10 @@
 
 import { Input } from "@/components/ui/input"
 import Link from "next/link";
-import { Enviroment } from "@/types/enviroment";
+
 
 import { useState, useEffect } from "react"
-import axios from "axios"
+
 
 import { fetchHomeEnviromentsForUser } from "@/api/enviroment";
 import { useAlerts } from "@/components/alert/Alert";
@@ -14,8 +14,7 @@ import { listEnv } from "../mocks/EnviromentList";
 
 export default function NotespaceList() {
     let [notespaces, setNotespaces] = useState<HomeEnviroment[]>([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const [state, setState] = useState("Loading");
     const [searchTerm, setSearchTerm] = useState("");
 
     const { addAlert } = useAlerts();
@@ -23,26 +22,21 @@ export default function NotespaceList() {
     useEffect(() => {
         const fetchNotespaces = async () => {
             try {
-                setIsLoading(true)
-                setError(null)
-
-
-                const userId = 1
-                const fetchedNotespaces = await fetchHomeEnviromentsForUser(userId)
-                setNotespaces(fetchedNotespaces)
+                const userId = 1;
+                const fetchedNotespaces = await fetchHomeEnviromentsForUser(userId);
+                setNotespaces(fetchedNotespaces);
+                setState("Success");
             } catch (err) {
 
                 setNotespaces(listEnv);
-                //setError("An error occurred while fetching notespaces.");
+                //setState("Error");
                 addAlert(`An error occurred while fetching notespaces.`, "error");
-                console.error("Error fetching notespaces:", err)
-            } finally {
-                setIsLoading(false)
-            }
+                console.error("Error fetching notespaces:", err);
+            } 
         }
 
-        fetchNotespaces()
-    }, [addAlert])
+        fetchNotespaces();
+    }, [addAlert]);
 
     const filteredNotespaces = notespaces && Array.isArray(notespaces)
         ? notespaces.filter((notespace) =>
@@ -59,11 +53,11 @@ export default function NotespaceList() {
                 value={searchTerm}
                 onChange={(e) => { setSearchTerm(e.target.value); addAlert("Changed", "success") }}
             />
-            {isLoading ? (
+            {state == "Loading" ? (
                 <div className="text-center">Loading notespaces...</div>
-            ) : error ? (
+            ) : state == "Error" ? (
                 <div className="bg-red-900/20 border border-red-900/50 text-red-500 p-3 rounded-md">
-                    {error}
+                    Error
                 </div>
             ) : filteredNotespaces.length > 0 ? (
                 <ul className="space-y-2 ml-2">
