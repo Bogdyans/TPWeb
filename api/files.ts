@@ -16,3 +16,21 @@ export async function getRootFiles(username: string, notespace: string): Promise
         throw err;
     }
 }
+
+export async function fetchData(file: File): Promise<string>{
+    if (file.isDirectory){
+        console.log("fetching data for not a file, but directory - ERROR")
+        throw "ERrror";
+    }
+    const id = file.id;
+    try {
+        const res = await axios.get('http://localhost:8000/api/files/data', {
+            params: { id },
+            timeout: TIMEOUT
+        });
+        return res.data;
+    } catch (err) {
+        console.log("Error fetching data from file");
+        throw err;
+    }
+}

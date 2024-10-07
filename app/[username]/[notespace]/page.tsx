@@ -8,16 +8,17 @@ import { ArrowLeft, Code, FileText, GitPullRequest, Info, Play, Shield, Star } f
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import RootFileList from "./components/rootFileList"
+import AboutSection from "./components/about"
 
-export default function Component({ params }) {
-  const state: String = "Public";
+export default function Component({ params }: any) {
+  const state: string = "Public";
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <header className="border-b border-gray-800 p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-          <Link href="/home" passHref>
+            <Link href="/home" passHref>
               <Button variant="ghost" size="icon" className="mr-2">
                 <ArrowLeft className="h-4 w-4" />
                 <span className="sr-only">Back</span>
@@ -29,7 +30,6 @@ export default function Component({ params }) {
             </Avatar>
             <h1 className="text-xl font-semibold">
               <Link href={`/${params.username}`}>{params.username} </Link> / {params.notespace}</h1>
-            <span className={`rounded-full  ${(state == "Public")? "bg-green-700" : "bg-red-700"} px-2 py-1 text-xs`}>{state}</span>
           </div>
         </div>
       </header>
@@ -80,27 +80,8 @@ export default function Component({ params }) {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-6">
-          <RootFileList author={params.username} notespace={params.notespace}/>
-          <div>
-            <h2 className="text-lg font-semibold mb-4">About</h2>
-            <p className="text-sm text-gray-400 mb-4">
-              No description, website, or topics provided.
-            </p>
-            <div className="space-y-2 text-sm">
-              <div className="flex items-center">
-                <Star className="mr-2 h-4 w-4" />
-                0 stars
-              </div>
-              <div className="flex items-center">
-                <Info className="mr-2 h-4 w-4" />
-                0 issues
-              </div>
-              <div className="flex items-center">
-                <GitPullRequest className="mr-2 h-4 w-4" />
-                0 pull requests
-              </div>
-            </div>
-          </div>
+          <RootFileList author={params.username} notespace={params.notespace} />
+          <AboutSection state={state}/>
         </div>
       </main>
     </div>

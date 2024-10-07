@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { HomeEnviroment } from '@/types/HomeEnviroments';
-import { Enviroment } from '@/types/enviroment';
+import { EnviromentInfo } from '@/types/enviroment';
 import { TIMEOUT } from './fetchConstant';
 
 export async function fetchHomeEnviromentsForUser(userId: number): Promise<HomeEnviroment[]> {
@@ -17,12 +17,13 @@ export async function fetchHomeEnviromentsForUser(userId: number): Promise<HomeE
     }
 }
 
-export async function fetchEnviroment(id: number): Promise<Enviroment> {
+export async function fetchEnviroment(id: number): Promise<EnviromentInfo> {
     try {
-        const response = await axios.get<Enviroment>(`/api/enviroment/${id}`);
+        const response = await axios.get<EnviromentInfo>(`/api/enviroment/${id}`);
         return response.data;
     } catch (error) {
         console.log("Error fetching Enviroment");
         throw error;
     }
 }
+

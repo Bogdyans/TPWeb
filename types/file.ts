@@ -1,5 +1,6 @@
 
 export interface File{
-    directory: boolean ,
+    id: number,
+    isDirectory: boolean ,
     name: String
 }
