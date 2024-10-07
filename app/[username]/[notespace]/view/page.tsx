@@ -4,7 +4,7 @@ import { fetchData } from "@/api/files"
 import { File } from "@/types/file"
 import { useEffect } from "react"
 
-export default function ViewFiles({ params }: any, { file }: File) {
+export default function ViewFiles({ params, file }: any) {
 
     useEffect(() => {
         const fetchData = async () => {
