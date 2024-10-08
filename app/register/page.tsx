@@ -10,39 +10,43 @@ import { ArrowRight } from 'lucide-react'
 
 import CodeBackground from '@/components/code'
 import { useAlerts } from '@/components/alert/Alert'
-import { authenticate } from '@/api/authorisation'
+import { register } from '@/api/authorisation'
 import { useRouter } from 'next/navigation'
-
 
 
 
 export default function Component() {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  const [cpassword, setCPassword] = useState('');
+  const [username, setUsername] = useState('');
+
+  const router = useRouter(); 
 
   const { addAlert } = useAlerts();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password.length < 8){
-      addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "error")
+      addAlert("Password length must be more than 8", "error")
+      return;
+    }
+
+    if (password != cpassword){
+      addAlert("Passwords do not match", "error")
       return;
     }
 
     try {
-      await authenticate(mail, password);
-      addAlert("Login successful!", "success");
+      await register(username, mail, password);
+      addAlert("Registration successful!", "success");
       
       router.push('/');
     } catch {
-      addAlert("Login failed!", "error");
+      addAlert("Registration failed!", "error");
     }
-
-    
   };
 
-  
 
 
 
@@ -59,7 +63,7 @@ export default function Component() {
 
           <h1 className="text-8xl font-bold text-white text-center mb-6 ">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-100 text-glow">
-              Sign In
+              Sign Up
             </span>
           </h1>
 
@@ -67,6 +71,17 @@ export default function Component() {
             <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
               <Input
                 type="text"
+                placeholder="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full h-12 px-4 py-2 text-sm text-white bg-gray-800 rounded-md focus:bg-white focus:text-gray-900 placeholder-gray-500
+              transition-all duration-300
+              border-none
+              ease-in-out transform
+              "
+              />
+              <Input
+                type="email"
                 placeholder="mail"
                 value={mail}
                 onChange={(e) => setMail(e.target.value)}
@@ -81,6 +96,17 @@ export default function Component() {
                 placeholder="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className="w-ful h-12 px-4 py-2 text-sm text-white bg-gray-800 rounded-md focus:bg-white focus:text-gray-900 placeholder-gray-500
+              border-none
+              transition-all duration-300
+              ease-in-out transform  
+              "
+              />
+              <Input
+                type="password"
+                placeholder="confirm password"
+                value={cpassword}
+                onChange={(e) => setCPassword(e.target.value)}
                 className="w-ful h-12 px-4 py-2 text-sm text-white bg-gray-800 rounded-md focus:bg-white focus:text-gray-900 placeholder-gray-500
               border-none
               transition-all duration-300
