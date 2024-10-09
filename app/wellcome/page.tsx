@@ -44,7 +44,7 @@ export default function Component() {
           <Button
             variant="outline"
             className="animate-soft-lighting w-3/5 h-1/6 bg-gray-950 hover:bg-white text-white hover:text-gray-950 border-purple-300 transition-all duration-300 ease-in-out transform hover:scale-105 shadow-[0_0_10px_#a855f7,inset_0_0_10px_#a855f7] hover:shadow-[0_0_20px_#ffffff,inset_0_0_20px_#ffffff] text-4xl"
-            onClick={() => { }}
+            onClick={() => router.push('/register')}
             
           >
             Sign Up

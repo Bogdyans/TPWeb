@@ -31,7 +31,9 @@ export default function Component() {
     }
 
     try {
-      await authenticate(mail, password);
+      if (mail.includes('@')){
+        await authenticate(mail, password);
+      } 
       addAlert("Login successful!", "success");
       
       router.push('/');
@@ -64,7 +66,7 @@ export default function Component() {
           </h1>
 
           <div className="relative">
-            <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
+            <form className="space-y-4" >
               <Input
                 type="text"
                 placeholder="mail"

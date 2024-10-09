@@ -10,12 +10,25 @@ import Link from "next/link"
 
 import { useAlerts } from '@/components/alert/Alert'
 import NotespaceList from "./components/notespaceList"
+import { useAuth } from "@/components/AuthProvider/AuthProvider"
+import { useRequireAuth } from "@/components/AuthProvider/useRequireAuth"
+import { useRouter } from "next/navigation"
 
 
 
 export default function Component() {
+    const router = useRouter();
+    const isAuthenticated = useRequireAuth();
+
+    
+
+
+
+
     const { addAlert } = useAlerts();
     const username = "Bogdyan";
+
+
 
     const handleCreate = () => {
         addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "success");

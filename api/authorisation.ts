@@ -24,6 +24,7 @@ export async function authenticate(email: string, pass: string) {
     }
 }
 
+
 export async function register(username: string, email: string, password: string): Promise<boolean> {
     try {
         const res = await axios.post(`${API_URL}/api/v1/auth/register`, {
