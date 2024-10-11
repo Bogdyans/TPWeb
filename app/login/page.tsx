@@ -12,6 +12,7 @@ import CodeBackground from '@/components/code'
 import { useAlerts } from '@/components/alert/Alert'
 import { authenticate } from '@/api/authorisation'
 import { useRouter } from 'next/navigation'
+import { useAuth } from '@/components/AuthProvider/AuthProvider'
 
 
 
@@ -19,6 +20,7 @@ import { useRouter } from 'next/navigation'
 export default function Component() {
   const [mail, setMail] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useAuth();
   const router = useRouter();
 
   const { addAlert } = useAlerts();
@@ -26,14 +28,14 @@ export default function Component() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password.length < 8){
-      addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "error")
+      addAlert("Password can't be this small", "error")
       return;
     }
 
     try {
-      if (mail.includes('@')){
-        await authenticate(mail, password);
-      } 
+      const token = await authenticate(mail, password);
+      await login(token);
+
       addAlert("Login successful!", "success");
       
       router.push('/');

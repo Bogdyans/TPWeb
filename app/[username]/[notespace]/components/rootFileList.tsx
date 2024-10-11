@@ -2,17 +2,17 @@ import { getRootFiles } from "@/api/files";
 import { useAlerts } from "@/components/alert/Alert";
 import { Input } from "@/components/ui/input";
 import { useState, useEffect } from "react"
-import { File } from "@/types/file";
+import { FileV } from "@/types/file";
 import { rootFiles } from "../mocks/rootFiles";
 import Link from "next/link";
 import { HomeEnviroment } from "@/types/HomeEnviroments";
 
 
 
-export default function RootFileList({ author, notespace }: HomeEnviroment) {
+export default function RootFileList(notespace: string) {
     
 
-    let [files, setFiles] = useState<File[]>([]);
+    let [files, setFiles] = useState<FileV[]>([]);
     const [state, setState] = useState("Loading");
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -22,20 +22,20 @@ export default function RootFileList({ author, notespace }: HomeEnviroment) {
     useEffect(() => {
         const fetchFiles = async () => {
             try {
-                const fetchedFiles = await getRootFiles(author, notespace);
+                const fetchedFiles = await getRootFiles(notespace);
                 setFiles(fetchedFiles);
                 setState("Success");
             } catch (err) {
                 addAlert("Error fetching files", "error");
                 //setState("Error");
-                setFiles(rootFiles);
+                // setFiles(rootFiles);
                 setState("Succes");
                 console.error("Error fetching files: ", err);
             }
         }
 
         fetchFiles();
-    }, [addAlert]);
+    }, [addAlert, notespace]);
 
     const filteredFiles = files && Array.isArray(files)
         ? files.filter((file) =>
@@ -53,8 +53,8 @@ export default function RootFileList({ author, notespace }: HomeEnviroment) {
             ) : filteredFiles.length > 0 ? (
                 <ul className="space-y-2">
                     {filteredFiles.map((item) => (
-                        <li key={filteredFiles.indexOf(item)} className="flex items-center justify-between p-2 hover:bg-gray-800 rounded">
-                            <Link href={`/${author}/${notespace}/view`}><span>{item.name}</span></Link>
+                        <li key={item.id} className="flex items-center justify-between p-2 hover:bg-gray-800 rounded">
+                            <Link href={`/${username}/${notespace}/view`}><span>{item.name}</span></Link>
                             <span className="text-gray-400 text-sm">Last updated 2 days ago</span>
                         </li>
                     ))}

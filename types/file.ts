@@ -1,6 +1,7 @@
 
-export interface File{
+export interface FileV{
     id: number,
-    isDirectory: boolean ,
-    name: String
+    name: String,
+    lastModified: String,
+    type: String
 }

@@ -1,13 +1,18 @@
-import { File } from "@/types/file";
+import { FileV } from "@/types/file";
 import axios from "axios";
-import { TIMEOUT } from "./fetchConstant";
+import { API_URL, TIMEOUT } from "./fetchConstant";
 
 
-export async function getRootFiles(username: string, notespace: string): Promise<File[]> {
+export async function getRootFiles(notespace: string): Promise<FileV[]> {
+    const token = localStorage.getItem("accessToken");
+
     try {
-        const res = await axios.get('http://localhost:8000/api/files/root', {
-            params: { username, notespace },
-            timeout: TIMEOUT
+        const res = await axios.get(`${API_URL}/api/files?notespace=${notespace}`, {
+            timeout: TIMEOUT,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
         }
         );
         return res.data;
@@ -17,8 +22,8 @@ export async function getRootFiles(username: string, notespace: string): Promise
     }
 }
 
-export async function fetchData(file: File): Promise<string>{
-    if (file.isDirectory){
+export async function fetchData(file: FileV): Promise<string>{
+    if (file.type == "D"){
         console.log("fetching data for not a file, but directory - ERROR")
         throw "ERrror";
     }

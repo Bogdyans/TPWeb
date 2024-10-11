@@ -1,7 +1,9 @@
 import { Star, Info } from "lucide-react";
 
 
-export default function AboutSection({state}){
+export default function AboutSection(){
+    const state = "Public";
+
     return (
         <div>
             <div className="flex items-center">

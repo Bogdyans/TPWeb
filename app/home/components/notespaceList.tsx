@@ -23,14 +23,14 @@ export default function NotespaceList() {
         const fetchNotespaces = async () => {
             try {
                 const userId = 1;
-                const fetchedNotespaces = await fetchHomeEnviromentsForUser(userId);
+                const fetchedNotespaces = await fetchHomeEnviromentsForUser();
                 setNotespaces(fetchedNotespaces);
                 setState("Success");
             } catch (err) {
 
-                setNotespaces(listEnv);
-                setState("Success");
-                //addAlert(`An error occurred while fetching notespaces.`, "error");
+                // setNotespaces(listEnv);
+                // setState("Success");
+                addAlert(`An error occurred while fetching notespaces.`, "error");
                 console.error("Error fetching notespaces:", err);
             } 
         }
@@ -38,9 +38,11 @@ export default function NotespaceList() {
         fetchNotespaces();
     }, [addAlert]);
 
+
+
     const filteredNotespaces = notespaces && Array.isArray(notespaces)
         ? notespaces.filter((notespace) =>
-            notespace.notespace.toLowerCase().includes(searchTerm.toLowerCase())
+            notespace.noteSpaceName.toLowerCase().includes(searchTerm.toLowerCase())
         )
         : [];
 
@@ -63,9 +65,9 @@ export default function NotespaceList() {
                 <ul className="space-y-2 ml-2">
                     {filteredNotespaces.map((notespace) => (
                         <li key={notespaces.indexOf(notespace)} className="flex items-center hover:bg-gray-900 p-1 rounded-sm">
-                            <Link href={`/${notespace.author}/${notespace.notespace}`}>
+                            <Link href={`/${notespace.authorName}/${notespace.noteSpaceName}`}>
                                 <div className="w-6 h-6 rounded-full bg-gray-700 mr-2"></div>
-                                {notespace.author} / {notespace.notespace}
+                                {notespace.authorName} / {notespace.noteSpaceName}
                             </Link>
                         </li>
                     ))}

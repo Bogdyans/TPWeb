@@ -35,7 +35,7 @@ export default function Component() {
               Organize your thoughts, capture your ideas, and unleash your productivity with our powerful note-taking platform. Whether you're a student, a professional, or simply someone who loves to keep track of their daily tasks and notes, Amethyst is the perfect tool to help you stay organized and focused.
             </p>
             <p className="max-w-lg text-xl text-glow">
-              Get started today and unlock the full potential of your ideas. Sign up now or log in to begin your journey with Note Wizard.
+              Get started today and unlock the full potential of your ideas. Sign up now or log in to begin your journey with Amethist.
             </p>
           </div>
         </div>

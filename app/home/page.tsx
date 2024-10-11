@@ -11,27 +11,39 @@ import Link from "next/link"
 import { useAlerts } from '@/components/alert/Alert'
 import NotespaceList from "./components/notespaceList"
 import { useAuth } from "@/components/AuthProvider/AuthProvider"
-import { useRequireAuth } from "@/components/AuthProvider/useRequireAuth"
 import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { createEnviroments } from "@/api/enviroment"
 
 
 
 export default function Component() {
+    const { isAuthenticated, isLoading } = useAuth();
+    const [ isPublic, setIsPublic ] = useState(false);
+    const [ newNSName, setNewNSName ] = useState("");
     const router = useRouter();
-    const isAuthenticated = useRequireAuth();
+    const { addAlert } = useAlerts();
 
+    if ( isLoading ) return (<div>   </div>);
+    if (!isAuthenticated) { 
+        router.push('/welcome');
+        return null;
+    }
     
 
-
-
-
-    const { addAlert } = useAlerts();
+    
     const username = "Bogdyan";
 
 
 
-    const handleCreate = () => {
-        addAlert("You can also use variant modifiers to target media queries like responsive breakpoints, dark mode, prefers-reduced-motion, and more. For example, use md:text-balance to apply the text-balance utility at only medium screen sizes and above.", "success");
+    const handleCreate = async () => {
+        try {
+            await createEnviroments(newNSName, isPublic);
+            addAlert("Created Notespace with name - " + newNSName, "success");
+        } catch (err) {
+            addAlert("Error creating notespace.", 'error');
+            console.log(err);
+        }
     };
 
     return (
@@ -66,10 +78,13 @@ export default function Component() {
                     <div className="p-6 bg-gray-900 rounded-xl">
                         <h3 className="text-xl font-semibold mb-4">Create a new notespace</h3>
                         <p className="text-gray-400 mb-4">Notespace is a space for your notes.</p>
-                        <Input className="mb-4 bg-gray-900 border-gray-800
+                        <Input onChange={(e)=>setNewNSName(e.target.value)} className="mb-4 bg-gray-900 border-gray-800
             focus:bg-gray-800 focus:text-white
             " placeholder="Notespace name" />
-                        <RadioGroup className="ml-3 space-y-1" defaultValue="private">
+                        <RadioGroup className="ml-3 space-y-1"
+                        value={isPublic ? "public" : "private"}
+                        onValueChange={(value) => setIsPublic(value === "public")}
+                        >
                             <div className="flex items-center space-x-1.5 text-gray-400 hover:text-white w-auto">
                                 <RadioGroupItem className="peer border-solid border-2 border-white focus:bg-white" value="public" id="public" />
                                 <Label htmlFor="public" className="mt-px">Public</Label>

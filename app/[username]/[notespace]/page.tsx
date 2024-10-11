@@ -9,9 +9,22 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import RootFileList from "./components/rootFileList"
 import AboutSection from "./components/about"
+import { useAuth } from "@/components/AuthProvider/AuthProvider"
+import { HomeEnviroment } from "@/types/HomeEnviroments"
 
 export default function Component({ params }: any) {
-  const state: string = "Public";
+  const notespace: string = params.notespace;
+  const { isAuthenticated, isLoading } = useAuth();
+  const router = useRouter();
+
+  
+
+  if ( isLoading ) return (<div>   </div>);
+  if (!isAuthenticated) { 
+      router.push('/welcome');
+      return null;
+  }
+
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
@@ -80,8 +93,8 @@ export default function Component({ params }: any) {
           </div>
         </div>
         <div className="grid grid-cols-3 gap-6">
-          <RootFileList author={params.username} notespace={params.notespace} />
-          <AboutSection state={state}/>
+          <RootFileList notespace={notespace} />
+          <AboutSection/>
         </div>
       </main>
     </div>
